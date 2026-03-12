@@ -1,7 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Trucar from "./Trucar";
 
 export default function Jogador({
+  canIncrease,
+  aumentaValorTruco,
   titulo,
+  matchValue,
   count,
   setCount,
   aumentarPlayer,
@@ -15,7 +19,7 @@ export default function Jogador({
         <View style={styles.buttons}>
           <TouchableOpacity
             style={styles.buttonIncrement}
-            onPress={() => aumentarPlayer(count, setCount)}
+            onPress={() => aumentarPlayer(count, setCount, matchValue)}
           >
             <Text style={styles.textoButtons}>+</Text>
           </TouchableOpacity>
@@ -27,6 +31,14 @@ export default function Jogador({
           </TouchableOpacity>
         </View>
       </View>
+      {canIncrease && (
+        <Trucar
+          canIncrease={canIncrease}
+          actualValue={matchValue}
+          aumentaValorTruco={aumentaValorTruco}
+          player={titulo}
+        />
+      )}
     </View>
   );
 }
