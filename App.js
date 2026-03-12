@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, View, Image, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import Jogador from "./components/Jogador";
 
 export default function App() {
@@ -10,6 +10,20 @@ export default function App() {
   const [countP2, setCountP2] = useState(0);
   const [matchValue, setMatchValue] = useState(1);
   const [isP1Truco, setIsP1Truco] = useState(false);
+
+  function reiniciar() {
+    setCountP1(0);
+    setCountP2(0);
+    setMatchValue(1);
+    setIsP1Truco(true);
+  }
+
+  function novoJogo() {
+    reiniciar();
+    setCountWinP1(0);
+    setCountWinP2(0);
+  }
+
   function aumentaValorTruco(player) {
     if (player == "NÓS") {
       if (matchValue != 1 && isP1Truco) return;
@@ -73,6 +87,20 @@ export default function App() {
       <View style={styles.pontuacaoAtual}>
         <Text style={styles.textMatchValue}>{matchValue}</Text>
       </View>
+      <View style={styles.bottom}>
+        <TouchableOpacity
+          style={styles.buttonsBottom}
+          onPress={() => reiniciar()}
+        >
+          <Text style={styles.textBtnBottom}>REINICIAR</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonsBottom}
+          onPress={() => novoJogo()}
+        >
+          <Text style={styles.textBtnBottom}>NOVO JOGO</Text>
+        </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -110,5 +138,23 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 100,
+  },
+  buttonsBottom: {
+    backgroundColor: "#000000FF",
+    width: 170,
+    height: 45,
+    justifyContent: "center",
+    borderRadius: 10,
+  },
+  textBtnBottom: {
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#FFFFFF",
+    textAlign: "center",
+  },
+  bottom: {
+    gap: 10,
+    position: "absolute",
+    bottom: 75,
   },
 });
