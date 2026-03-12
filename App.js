@@ -4,6 +4,8 @@ import { StyleSheet, View, Image, Text, ImageBackground } from "react-native";
 import Jogador from "./components/Jogador";
 
 export default function App() {
+  const [countWinP1, setCountWinP1] = useState(0);
+  const [countWinP2, setCountWinP2] = useState(0);
   const [countP1, setCountP1] = useState(0);
   const [countP2, setCountP2] = useState(0);
   const [matchValue, setMatchValue] = useState(1);
@@ -19,11 +21,15 @@ export default function App() {
       setIsP1Truco(false);
     }
   }
-  function aumentarPlayer(count, setCount, matchValue) {
-    setCount((count) => count + matchValue);
+  function aumentarPlayer(count, setCount, matchValue, player) {
+    var newCount = count + matchValue;
+    setCount(newCount);
     setMatchValue(1);
     setIsP1Truco(false);
-    if (count >= 12) {
+    if (newCount >= 12) {
+      player == "NÓS"
+        ? setCountWinP1((countWinP1) => countWinP1 + 1)
+        : setCountWinP2((countWinP2) => countWinP2 + 1);
       setCountP1(0);
       setCountP2(0);
     }
@@ -44,6 +50,7 @@ export default function App() {
           /*(O ultimo truco não pode ser do player 1 || valor atual == 1) && O valor atual tem que ser menor que doze*/
           canIncrease={(!isP1Truco || matchValue == 1) && matchValue < 10}
           count={countP1}
+          countWin={countWinP1}
           aumentaValorTruco={aumentaValorTruco}
           matchValue={matchValue}
           setCount={setCountP1}
@@ -55,6 +62,7 @@ export default function App() {
           /*(O ultimo truco do player 1 || valor atual == 1) && O valor atual tem que ser menor que doze*/
           canIncrease={(isP1Truco || matchValue == 1) && matchValue < 10}
           count={countP2}
+          countWin={countWinP2}
           aumentaValorTruco={aumentaValorTruco}
           matchValue={matchValue}
           setCount={setCountP2}

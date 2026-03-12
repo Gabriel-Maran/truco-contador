@@ -7,6 +7,7 @@ export default function Jogador({
   titulo,
   matchValue,
   count,
+  countWin,
   setCount,
   aumentarPlayer,
   dimunuirPlayer,
@@ -16,10 +17,11 @@ export default function Jogador({
       <View style={styles.contador}>
         <Text style={styles.title}>{titulo}</Text>
         <Text style={styles.textContador}>{count}</Text>
+        <Text style={styles.textWins}>Ganhou {countWin}</Text>
         <View style={styles.buttons}>
           <TouchableOpacity
             style={styles.buttonIncrement}
-            onPress={() => aumentarPlayer(count, setCount, matchValue)}
+            onPress={() => aumentarPlayer(count, setCount, matchValue, titulo)}
           >
             <Text style={styles.textoButtons}>+</Text>
           </TouchableOpacity>
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     margin: 20,
+    marginBottom: 45,
   },
   contador: {
     justifyContent: "center",
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 15,
     justifyContent: "center",
-    marginTop: 130,
+    marginTop: 50,
   },
   buttonIncrement: {
     backgroundColor: "#125c46",
@@ -85,5 +88,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
     textAlign: "center",
+  },
+  textWins: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
